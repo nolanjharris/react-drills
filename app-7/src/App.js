@@ -1,18 +1,27 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
+import NewTask from './components/NewTask';
+import List from './components/List';
 import "./App.css";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      todoList: []
+    }
+    this.handleAddTask = this.handleAddTask.bind(this);
+  }
+
+  handleAddTask(task) {
+    this.setState({ todoList: [...this.state.todoList, task] })
+  }
+
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1>My to-do list:</h1>
+        <NewTask add={this.handleAddTask} />
+        <List tasks={this.state.todoList} />
       </div>
     );
   }
