@@ -1,18 +1,29 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
+import axios from 'axios';
+
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      r2d2: ''
+    }
+  }
+
+  componentDidMount() {
+    axios.get('https://swapi.co/api/people/3').then(response => {
+      this.setState({ r2d2: response.data })
+    });
+  }
+
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1>Name: {this.state.r2d2.name}</h1>
+        <h1>Birth Year: {this.state.r2d2.birth_year}</h1>
+        <h1>Gender: {this.state.r2d2.gender}</h1>
+        <h1>Eye Color: {this.state.r2d2.eye_color}</h1>
       </div>
     );
   }
